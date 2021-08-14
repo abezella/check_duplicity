@@ -65,6 +65,9 @@ def main():
     parser.add_argument('-c', dest='crit', type=int, default=14*24*3600,
                         help='backup age considered critical, '
                              'in seconds (default: two weeks)')
+    parser.add_argument('-w', dest='warn', type=int, default=7*24*3600,
+                        help='backup age considered warning, '
+                             'in seconds (default: one week)')
     args = parser.parse_args()
 
     try:
@@ -80,6 +83,9 @@ def main():
     if lastbackup < time.time() - args.crit:
         print("CRIT: Last backup too old: {}".format(time.ctime(lastbackup)))
         exit(2)
+    elif lastbackup < time.time() - args.warn:
+        print("WARN: Last backup too old: {}".format(time.ctime(lastbackup)))
+        exit(1)
     else:
         print("OK: Last backup just fine: {}".format(time.ctime(lastbackup)))
         exit(0)
