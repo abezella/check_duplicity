@@ -62,7 +62,7 @@ def main():
     parser = argparse.ArgumentParser(description='Check a duplicity backup.')
     parser.add_argument('location', metavar='LOCATION', type=str,
                         help='the duplicity backup location (URL)')
-    parser.add_argument('-c', dest='crit', default=14*24*3600,
+    parser.add_argument('-c', dest='crit', type=int, default=14*24*3600,
                         help='backup age considered critical, '
                              'in seconds (default: two weeks)')
     args = parser.parse_args()
